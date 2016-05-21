@@ -1,6 +1,6 @@
 <?php
 /**
- * 够公用的方法
+ * 公用的方法
  * Created by PhpStorm.
  * User: guojingfeng
  * Date: 2016/5/19
@@ -44,4 +44,12 @@ function getActive($nav){
         return 'class="active"';
     }
     return '';
+}
+function showKind($status,$data){
+    header('Content-type:application/json;charset=UTF-8');
+    if ($status == 0){
+        exit(json_encode(array('error'=>0, 'url'=>$data,
+        )));
+    }
+    exit(json_encode(array('error'=>0, 'message'=>'上传失败',)));
 }
