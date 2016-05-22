@@ -53,3 +53,7 @@ function showKind($status,$data){
     }
     exit(json_encode(array('error'=>0, 'message'=>'上传失败',)));
 }
+function getLoginUsername(){
+
+    return $_SESSION['AdminUser']['username'] ? $_SESSION['AdminUser']['username'] : '';
+}
