@@ -49,4 +49,7 @@ class NewsModel extends Model{
         return $this->_db->where($conditinos)->count();
         
     }
+    public function find($id){
+        return $this->_db->where('news_id='.$id)->find();
+    }
 }
