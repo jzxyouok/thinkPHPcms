@@ -131,4 +131,28 @@ class ContentController extends Controller {
         }
         return show(0,"没有提交的数据" );
     }
+    public function listorder(){
+        $listorder = $_POST['listorder'];
+        $jumpUrl = $_SERVER['HTTP_REFERER'];
+
+        $errors = array();
+        if ($listorder){
+            try{
+                foreach ($listorder as $news_id => $v) {
+                    $id = D('News')->upadteNewsListorderById($news_id, $v);
+                    if ($id === false) {
+                        $errors[] = $news_id;
+                    }
+                }
+            }catch (Exception $e){
+                return show(0,$e->getMessage(), array('jump_url'=>$jumpUrl));
+            }
+            if ($errors){
+                return show(0,"排序错误-" .implode(',', $errors),array('jump_url'=>$jumpUrl));
+            }
+            return show(1,"排序成功" ,array('jump_url'=>$jumpUrl));
+        }
+        return show(0,"排序文章失败", array('jump_url'=>$jumpUrl));
+
+    }
 }
