@@ -4,6 +4,7 @@
  */
 namespace Admin\Controller;
 use Think\Controller;
+use Think\Exception;
 
 class ContentController extends Controller {
     
@@ -47,6 +48,9 @@ class ContentController extends Controller {
             }
             if ( !isset($_POST['keywords']) || !$_POST['keywords']){
                 return show(0,'关键字不能为空' );
+            }
+            if ($_POST['news_id']){
+                return $this->save($_POST);
             }
 
             $newsId = D('News')->insert($_POST);
@@ -93,5 +97,21 @@ class ContentController extends Controller {
         $this->assign('new',$new);
 
         $this->display();
+    }
+    public function save($data){
+        $newsId = $data['news_id'];
+        unset($data['news_id']);
+        try {
+            $new = D('News')->updateById($newsId, $data);
+            $contentData['content'] = $data['content'];
+            $newContent = D('NewsContent')->updateContentById($newsId, $contentData);
+            if ( $new === false || $newContent === false){
+                return show(0,'修改失败' );
+            }
+        }catch (Exception $e){
+            return show(0,$e->getMessage() );
+        }
+
+        return show(1,'修改成功' );
     }
 }

@@ -28,4 +28,16 @@ class NewsContentModel extends Model{
     public function find($id){
         return $this->_db->where('news_id='.$id)->find();
     }
+    public function updateContentById($id,$data){
+        if ( !$id || !is_numeric($id)){
+            throw_exception('ID不合法');
+        }
+        if ( !$data || !is_array($data)){
+            throw_exception('数据不合法');
+        }
+        if ( isset($data['content']) && $data['content'] ){
+            $data['content'] = htmlspecialchars($data['content']);
+        }
+        return $this->_db->where('news_id='.$id)->save($data);
+    }
 }
