@@ -57,3 +57,19 @@ function getLoginUsername(){
 
     return $_SESSION['AdminUser']['username'] ? $_SESSION['AdminUser']['username'] : '';
 }
+function getCatName($navs,$id){
+    foreach ($navs as $nav){
+        $list[$nav['menu_id']] = $nav['name'];
+    }
+    return isset($list[$id]) ? $list[$id] : '';
+}
+function getCopyFromById($id){
+    $list = C('COPY_FROM');
+    return $list[$id] ? $list[$id] : '';
+}
+function isThumb($thumb){
+    if ($thumb){
+        return '<span style="color:red;">有</span>';
+    }
+    return '无';
+}

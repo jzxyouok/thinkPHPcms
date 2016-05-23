@@ -23,4 +23,30 @@ class NewsModel extends Model{
         $data['username'] = getLoginUsername();
         return $this->_db->add($data);
     }
+    public function getNews($data,$page,$pageSize=10){
+        $data['status'] = array('neq',-1);
+        $conditinos =$data;
+        if (isset($data['title']) && $data['title']){
+            $conditinos['title'] = array('like','%'.$data['title'].'%');
+        }
+        if (isset($data['catid']) && $data['catid']){
+            $conditinos['catid'] = intval($data['catid']);
+        }
+
+        $offset = ($page-1) * $pageSize;
+        $list = $this->_db->where($conditinos)->order('listorder desc,news_id desc')->limit($offset,$pageSize)->select();
+        return $list;
+    }
+    public function count($data){
+        $data['status'] = array('neq',-1);
+        $conditinos =$data;
+        if (isset($data['title']) && $data['title']){
+            $conditinos['title'] = array('like','%'.$data['title'].'%');
+        }
+        if (isset($data['catid']) && $data['catid']){
+            $conditinos['catid'] = intval($data['catid']);
+        }
+        return $this->_db->where($conditinos)->count();
+        
+    }
 }

@@ -4,9 +4,30 @@
  */
 namespace Admin\Controller;
 use Think\Controller;
+
 class ContentController extends Controller {
     
     public function index(){
+        $data = array();
+        $title = $_GET['title'];
+        if ($title){
+            $data['title'] = $title;
+        }
+        if ($_GET['catid']){
+            $data['catid'] = intval($_GET['catid']);
+        }
+        $page = $_REQUEST['p'] ? $_REQUEST['p'] : 1;
+        $pageSize = $_REQUEST['pageSize'] ? $_REQUEST['pageSize'] : 5;
+
+        $news = D('News')->getNews($data,$page,$pageSize);
+        $count = D('News')->count($data);
+
+        $res = new \Think\Page($count,$pageSize);
+        $pageres = $res->show();
+
+        $this->assign('news',$news);
+        $this->assign('pageres',$pageres);
+        $this->assign('webSiteMenu',D('Menu')->getBarMenus());
     	$this->display();
     }
 
