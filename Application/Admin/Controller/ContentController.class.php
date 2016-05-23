@@ -114,4 +114,21 @@ class ContentController extends Controller {
 
         return show(1,'修改成功' );
     }
+    public function setStatus(){
+        if ($_POST) {
+            $id = $_POST['id'];
+            $status = $_POST['status'];
+        }
+        try {
+            $res = D('News')->updateStatusById($id, $status);
+            if ($res){
+                return show(1,"操作成功" );
+            }else{
+                return show(0,"操作失败" );
+            }
+        }catch (Exception $e){
+            return show(0,$e->getMessage() );
+        }
+        return show(0,"没有提交的数据" );
+    }
 }
