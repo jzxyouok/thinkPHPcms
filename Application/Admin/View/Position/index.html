@@ -41,13 +41,14 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <volist name="res" id="res">
                             <tr>
                                 <!--<td><input size=4 type='text'  name='' value=""/></td>-->
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{$res.id}</td>
+                                <td>{$res.name}</td>
+                                <td>{$res.create_time|date='Y-m-d H:i',###}</td>
                                 <td>
-                                    <span  attr-status="0"  attr-id="" class="sing_cursor singcms-on-off" id="singcms-on-off" ></span>
+                                    <span  attr-status="0"  attr-id="" class="sing_cursor singcms-on-off" id="singcms-on-off" >{$res.status|status}</span>
                                 </td>
                                 <td>
                                     <span class="sing_cursor glyphicon glyphicon-edit" aria-hidden="true" id="singcms-edit" attr-id="" ></span>
@@ -56,7 +57,7 @@
                                     </a>
                                 </td>
                             </tr>
-
+                        </volist>
                         </tbody>
                     </table>
                     </from>

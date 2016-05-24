@@ -14,5 +14,9 @@ class PositionModel extends Model{
     {
         $this->_db = M('position');
     }
+    public function getPosition(){
+        $data['status'] = array('neq',-1);
+        return $this->_db->where($data)->select();
+    }
 
 }
