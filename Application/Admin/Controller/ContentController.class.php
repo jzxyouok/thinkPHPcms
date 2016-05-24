@@ -25,10 +25,12 @@ class ContentController extends Controller {
 
         $res = new \Think\Page($count,$pageSize);
         $pageres = $res->show();
-
+        $positions = D('Position')->getPosition();
+        
         $this->assign('news',$news);
         $this->assign('pageres',$pageres);
         $this->assign('webSiteMenu',D('Menu')->getBarMenus());
+        $this->assign('positions', $positions);
     	$this->display();
     }
 

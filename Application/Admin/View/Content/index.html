@@ -73,8 +73,8 @@
                 <tbody>
                 <volist name="news" id="news">
                   <tr>
-                    <td><input type="checkbox" name="pushcheck" value="{$new.news_id}"></td>
-                    <td><input size=4 type='text'  name='' value=""/></td><!--6.7-->
+                    <td><input type="checkbox" name="pushcheck" value="{$news.news_id}"></td>
+                    <td><input size=4 type='text'  name='listorder[{$news.news_id}]' value="{$news.listorder}"/></td><!--6.7-->
                     <td>{$news.news_id}</td>
                     <td>{$news.title}</td>
                     <td>{$news.catid|getCatName=$webSiteMenu,###}</td>
@@ -102,7 +102,9 @@
               </ul>
 
             </nav>
-              
+              <div>
+                <button  id="button-order" type="button" class="btn btn-primary dropdown-toggle" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>更新排序 </button>
+              </div>
             </form>
 
           </div>
@@ -110,7 +112,15 @@
 
       </div>
       <!-- /.row -->
-
+      <div class="input-group">
+        <select class="form-control" name="position_id" id="select-push">
+          <option value="0">请选择推荐位进行推送</option>
+          <foreach name="positions" item="position">
+            <option value="{$position.id}">{$position.name}</option>
+          </foreach>
+        </select>
+        <button id="singcms-push" type="button" class="btn btn-primary">推送</button>
+      </div>
 
 
     </div>
