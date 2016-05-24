@@ -26,7 +26,7 @@ class ContentController extends Controller {
         $res = new \Think\Page($count,$pageSize);
         $pageres = $res->show();
         $positions = D('Position')->getPosition();
-        
+
         $this->assign('news',$news);
         $this->assign('pageres',$pageres);
         $this->assign('webSiteMenu',D('Menu')->getBarMenus());
@@ -155,6 +155,42 @@ class ContentController extends Controller {
             return show(1,"排序成功" ,array('jump_url'=>$jumpUrl));
         }
         return show(0,"排序文章失败", array('jump_url'=>$jumpUrl));
+
+    }
+    public function push() {
+        $jumpUrl = $_SERVER['HTTP_REFERER'];
+        $positonId = intval($_POST['position_id']);
+        $newsId = $_POST['push'];
+
+        if(!$newsId || !is_array($newsId)) {
+            return show(0, '请选择推荐的文章ID进行推荐');
+        }
+        if(!$positonId) {
+            return show(0, '没有选择推荐位');
+        }
+        try {
+            $news = D("News")->getNewsByNewsIdIn($newsId);
+            if (!$news) {
+                return show(0, '没有相关内容');
+            }
+
+            foreach ($news as $new) {
+                $data = array(
+                    'position_id' => $positonId,
+                    'title' => $new['title'],
+                    'thumb' => $new['thumb'],
+                    'news_id' => $new['news_id'],
+                    'status' => 1,
+                    'create_time' => $new['create_time'],
+                );
+                $position = D("PositionContent")->insert($data);
+            }
+        }catch(Exception $e) {
+            return show(0, $e->getMessage());
+        }
+
+        return show(1, '推荐成功',array('jump_url'=>$jumpUrl));
+
 
     }
 }
