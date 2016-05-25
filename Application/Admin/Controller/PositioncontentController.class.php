@@ -11,7 +11,41 @@ use Think\Controller;
 class PositioncontentController extends Controller{
     public function add()
     {
-        $this->display();
+        if ($_POST) {
+            if(!isset($_POST['position_id']) || !$_POST['position_id']) {
+                return show(0, '推荐位ID不能为空');
+            }
+            if(!isset($_POST['title']) || !$_POST['title']) {
+                return show(0, '推荐位标题不能为空');
+            }
+            if(!$_POST['url'] && !$_POST['news_id']) {
+                return show(0, 'url和news_id不能同时为空');
+            }
+            if(!isset($_POST['thumb']) || !$_POST['thumb']) {
+                if($_POST['news_id']) {
+                    $res = D("News")->find($_POST['news_id']);
+                    if($res && is_array($res)) {
+                        $_POST['thumb'] = $res['thumb'];
+                    }
+                }else{
+                    return show(0,'图片不能为空');
+                }
+
+            }
+            try{
+                $id = D("PositionContent")->insert($_POST);
+                if($id) {
+                    return show(1, '新增成功');
+                }
+                return show(0, '新增失败');
+            }catch(Exception $e) {
+                return show(0, $e->getMessage());
+            }
+        } else {
+            $positions = D('Position')->getPosition();
+            $this->assign('positions', $positions);
+            $this->display();
+    }
     }
 
     public function index()

@@ -15,6 +15,7 @@ class PositionContentModel extends Model{
         $this->_db = M('position_content');
     }
     public function insert($data){
+        $data['create_time'] = time();
         return $this->_db->add($data);
     }
     public function select($data=array(),$limit=0){
