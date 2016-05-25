@@ -30,7 +30,9 @@
                     <div class="input-group">
                         <span class="input-group-addon">推荐位</span>
                         <select class="form-control" name="position_id">
-                                <option value=""></option>
+                            <foreach name="positions" item="position">
+                                <option value="{$position.id}"<if condition="$position['id'] eq $positionId">selected="selected"</if> >{$position.name}</option>
+                            </foreach>
                         </select>
                     </div>
                 </div>
@@ -65,23 +67,24 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <volist name="contents" id="cnt">
                             <tr>
                                 <td><input size=4 type='text'  name='' value=""/></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{$cnt.id}</td>
+                                <td>{$cnt.title}</td>
+                                <td>{$cnt.create_time|date='Y-m-d H:i',###}</td>
+                                <td>{$cnt.thumb|isThumb}</td>
                                 <td>
-                                    <span  attr-status="0"  attr-id="" class="sing_cursor singcms-on-off" id="singcms-on-off" ></span>
+                                    <span  attr-status="<if condition='$cnt.status eq 1'>0<else/>1</if>"  attr-id="{$cnt.id}" class="sing_cursor singcms-on-off" id="singcms-on-off" >{$cnt.status|status}</span>
                                 </td>
                                 <td>
                                     <span class="sing_cursor glyphicon glyphicon-edit" aria-hidden="true" id="singcms-edit" attr-id="" ></span>
-                                    <a href="javascript:void(0)" id="singcms-delete"  attr-id=""  attr-message="删除">
+                                    <a href="javascript:void(0)" id="singcms-delete" class="singcms-delete" attr-id="{$cnt.id}"  attr-message="删除">
                                         <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                                     </a>
                                 </td>
                             </tr>
-
+                        </volist>
                         </tbody>
                     </table>
                     </from>
