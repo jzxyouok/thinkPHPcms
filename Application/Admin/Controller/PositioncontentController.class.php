@@ -32,6 +32,9 @@ class PositioncontentController extends Controller{
                 }
 
             }
+            if($_POST['id']) {
+                return $this->save($_POST);
+            }
             try{
                 $id = D("PositionContent")->insert($_POST);
                 if($id) {
@@ -79,6 +82,39 @@ class PositioncontentController extends Controller{
                 return show(0,$e->getMessage() );
             }
             return show(0,"没有提交的数据" );
+        }
+    }
+    public function edit() {
+
+        $id = $_GET['id'];
+        $position = D("PositionContent")->find($id);
+        $positions = D("Position")->getPosition();
+        $this->assign('positions', $positions);
+        $this->assign('vo', $position);
+        $this->display();
+    }
+    public function updateById($id, $data) {
+
+        if(!$id || !is_numeric($id)) {
+            throw_exception("ID不合法");
+        }
+        if(!$data || !is_array($data)) {
+            throw_exception('更新的数据不合法');
+        }
+        return  $this->_db->where('id='.$id)->save($data); 
+    }
+    public function save($data) {
+        $id = $data['id'];
+        unset($data['id']);
+
+        try {
+            $resId = D("PositionContent")->updateById($id, $data);
+            if($resId === false) {
+                return show(0, '更新失败');
+            }
+            return show(1, '更新成功');
+        }catch(Exception $e) {
+            return show(0, $e->getMessage());
         }
     }
 }
