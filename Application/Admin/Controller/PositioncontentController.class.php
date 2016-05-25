@@ -101,7 +101,7 @@ class PositioncontentController extends Controller{
         if(!$data || !is_array($data)) {
             throw_exception('更新的数据不合法');
         }
-        return  $this->_db->where('id='.$id)->save($data); 
+        return  $this->_db->where('id='.$id)->save($data);
     }
     public function save($data) {
         $id = $data['id'];
@@ -116,5 +116,27 @@ class PositioncontentController extends Controller{
         }catch(Exception $e) {
             return show(0, $e->getMessage());
         }
+    }
+    public function listorder(){
+        $listorder = $_POST['listorder'];
+        $jumpUrl = $_SERVER['HTTP_REFERER'];
+        $errors = array();
+        if ($listorder){
+            try{
+                foreach ($listorder as $id => $v) {
+                    $pid = D('PositionContent')->upadtePositionListorderById($id, $v);
+                    if ($pid === false) {
+                        $errors[] = $pid;
+                    }
+                }
+            }catch (Exception $e){
+                return show(0,$e->getMessage(), array('jump_url'=>$jumpUrl));
+            }
+            if ($errors){
+                return show(0,"排序错误-" .implode(',', $errors),array('jump_url'=>$jumpUrl));
+            }
+            return show(1,"排序成功" ,array('jump_url'=>$jumpUrl));
+        }
+        return show(0,"排序数据失败", array('jump_url'=>$jumpUrl));
     }
 }
