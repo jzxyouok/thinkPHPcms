@@ -30,6 +30,12 @@ class DetailController extends CommonController {
             'news' => $news,
         ));
 
-        $this->display("Detail/index");
+        $this->display("Detail/index");//参数是为下面的view方法设定的
+    }
+    public function  view() {
+        if(!getLoginUsername()) {
+            return $this->error("您没有权限访问该页面");
+        }
+        $this->index();
     }
 }
