@@ -15,4 +15,9 @@ class CommonController extends Controller {
         $news = D("News")->getRank($conds,10);
         return $news;
     }
+    public function error($message = '') {
+        $message = $message ? $message : '系统发生错误';
+        $this->assign('message',$message);
+        $this->display("Index/error");
+    }
 }
