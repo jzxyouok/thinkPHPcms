@@ -2,7 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 class IndexController extends CommonController {
-    public function index(){
+    public function index($type=''){
         //获取排行
         $rankNews = $this->getRank();
         // 获取首页大图数据
@@ -21,6 +21,14 @@ class IndexController extends CommonController {
             'rankNews' => $rankNews,
             'catId' => 0,
         ));
-        $this->display();
+        if($type == 'buildHtml') {
+            $this->buildHtml('index',HTML_PATH,'Index/index');
+
+        }else {
+            $this->display();
+        }
+    }
+    public function build_html() {
+        $this->index('buildHtml');
     }
 }
