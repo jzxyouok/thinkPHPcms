@@ -88,4 +88,20 @@ class NewsModel extends Model{
         return $this->_db->where($data)->select();
 
     }
+    
+    /**
+     * 获取排行的数据
+     * @param array $data
+     * @param int $limit
+     * @return array
+     */
+    public function getRank($data = array(), $limit = 30) {
+        $list = $this->_db->where($data)->order('count desc,news_id desc ')->limit($limit)->select();
+        return $list;
+    }
+    public function select($data = array(), $limit = 100) {
+        $conditions = $data;
+        $list = $this->_db->where($conditions)->order('news_id desc')->limit($limit)->select();
+        return $list;
+    }
 }
