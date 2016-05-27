@@ -30,5 +30,6 @@ class IndexController extends CommonController {
     }
     public function build_html() {
         $this->index('buildHtml');
+        return show(1, '首页缓存生成成功');
     }
 }
