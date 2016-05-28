@@ -47,4 +47,15 @@ class AdminModel extends Model{
         }
         return  $this->_db->where('admin_id='.$id)->save($data); // 根据条件更新记录
     }
+
+    public function getLastLoginUsers() {
+        $time = mktime(0,0,0,date("m"),date("d"),date("Y"));
+        $data = array(
+            'status' => 1,
+            'lastlogintime' => array("gt",$time),
+        );
+
+        $res = $this->_db->where($data)->count();
+        return $res['tp_count'];
+    }
 }
