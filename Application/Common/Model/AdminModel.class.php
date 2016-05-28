@@ -19,6 +19,12 @@ class AdminModel extends Model{
         $ret = $this->_db->where('username="'.$username.'"')->find();
         return $ret;
     }
+    
+    public function getAdminByAdminId($adminId=0) {
+        $res = $this->_db->where('admin_id='.$adminId)->find();
+        return $res;
+    }
+    
 
     public function select(){
         return $this->_db->order('admin_id desc')->select();

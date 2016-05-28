@@ -40,4 +40,18 @@ class AdminController extends Controller {
         }
         $this->display();
     }
+
+    public function personal() {
+        $res = $this->getLoginUser();
+        $user = D("Admin")->getAdminByAdminId($res['admin_id']);
+        $this->assign('vo',$user);
+        $this->display();
+    }
+    /**
+     * 公用控制器方法，完善后合并
+     * @return array
+     */
+    public function getLoginUser() {
+        return session("AdminUser");
+    }
 }
