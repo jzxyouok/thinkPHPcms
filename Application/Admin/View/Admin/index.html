@@ -47,15 +47,15 @@
                         </thead>
                         <tbody>
                             <tr>
-                                
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><span  attr-status=""  attr-id="" class="sing_cursor singcms-on-off" id="singcms-on-off" ></span></td>
+                                <foreach name="users" item="user">
+                                <td>{$user.admin_id}</td>
+                                <td>{$user.username}</td>
+                                <td>{$user.realname}</td>
+                                <td>{$user.lastlogintime|date='y-m-d h:i',###}</td>
+                                <td><span  attr-status=""  attr-id="" class="sing_cursor singcms-on-off" id="singcms-on-off" >{$user.status|status}</span></td>
                                 <td>    <a href="javascript:void(0)" attr-id="" id="singcms-delete"  attr-a="admin" attr-message="删除"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></td>
                             </tr>
-                        </volist>
+                            </foreach>
 
                         </tbody>
                     </table>
