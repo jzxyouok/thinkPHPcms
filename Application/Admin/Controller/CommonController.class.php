@@ -46,6 +46,23 @@ class CommonController extends Controller {
 		return false;
 	}
 
-	
+	public function setStatus($data,$model){
+		if (!$data || !is_array($data)) {
+			return show(0,'提交的数据不合法' );
+		}
+			$id = $data['id'];
+			$status = $data['status'];
+			try {
+				$res = D($model)->updateStatusById($id, $status);
+				if ($res){
+					return show(1,"操作成功" );
+				}else{
+					return show(0,"操作失败" );
+				}
+			}catch (Exception $e){
+				return show(0,$e->getMessage() );
+			}
+			return show(0,"没有提交的数据" );
+	}
 
 }

@@ -3,6 +3,7 @@
  * 后台Index相关
  */
 namespace Admin\Controller;
+use Common\Model\NewsModel;
 use Think\Controller;
 use Think\Exception;
 
@@ -117,19 +118,12 @@ class ContentController extends CommonController {
         return show(1,'修改成功' );
     }
     public function setStatus(){
-        if ($_POST) {
-            $id = $_POST['id'];
-            $status = $_POST['status'];
-        }
-        try {
-            $res = D('News')->updateStatusById($id, $status);
-            if ($res){
-                return show(1,"操作成功" );
-            }else{
-                return show(0,"操作失败" );
-            }
-        }catch (Exception $e){
-            return show(0,$e->getMessage() );
+        $data = array();
+        if ($_POST){
+            $data['id'] = $_POST['id'];
+            $data['status'] = $_POST['status'];
+
+            parent::setStatus($data, News);
         }
         return show(0,"没有提交的数据" );
     }

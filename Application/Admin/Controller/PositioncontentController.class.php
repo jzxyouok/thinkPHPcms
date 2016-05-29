@@ -68,21 +68,14 @@ class PositioncontentController extends CommonController{
         $this->display();
     }
     public function setStatus(){
+        $data = array();
         if ($_POST){
-            $id = $_POST['id'];
-            $status = $_POST['status'];
-            try {
-                $res = D('PositionContent')->updateStatusById($id, $status);
-                if ($res){
-                    return show(1,"操作成功" );
-                }else{
-                    return show(0,"操作失败" );
-                }
-            }catch (Exception $e){
-                return show(0,$e->getMessage() );
+            $data['id'] = $_POST['id'];
+            $data['status'] = $_POST['status'];
+
+            parent::setStatus($data, PositionContent);
             }
             return show(0,"没有提交的数据" );
-        }
     }
     public function edit() {
 
