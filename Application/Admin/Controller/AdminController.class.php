@@ -5,7 +5,7 @@ use Think\Controller;
 /**
  * use Common\Model 这块可以不需要使用，框架默认会加载里面的内容
  */
-class AdminController extends Controller {
+class AdminController extends CommonController {
 
     public function index(){
         $users = D('Admin')->select();

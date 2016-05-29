@@ -8,7 +8,7 @@
 namespace Admin\Controller;
 use Think\Controller;
 
-class PositioncontentController extends Controller{
+class PositioncontentController extends CommonController{
     public function add()
     {
         if ($_POST) {

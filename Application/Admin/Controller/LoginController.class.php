@@ -8,7 +8,7 @@ use Think\Controller;
 class LoginController extends Controller {
 
     public function index(){
-        if(session('AdminUser')){
+        if(session('adminUser')){
             $this->redirect('/index.php?m=admin&c=index');
         }
     	return $this->display();
@@ -30,13 +30,13 @@ class LoginController extends Controller {
         if($ret['password'] != getMd5Password($password)){
             return show(0,"密码错误");
         }
-        D("Admin")->updateByAdminId($ret['admin_id'],array('lastlogintime'=>time()));
+        D("admin")->updateByAdminId($ret['admin_id'],array('lastlogintime'=>time()));
         
-        session('AdminUser',$ret);
+        session('adminUser',$ret);
         return show(1,"登陆成功");
     }
     public function loginout(){
-        session('AdminUser',null);
+        session('adminUser',null);
         $this->redirect('/index.php?m=admin&c=login');
     }
 }

@@ -10,7 +10,7 @@ use Think\Controller;
 use Think\Crypt\Driver\Think;
 use Think\Exception;
 
-class MenuController extends Controller{
+class MenuController extends CommonController{
     public function add()
     {
         if($_POST){

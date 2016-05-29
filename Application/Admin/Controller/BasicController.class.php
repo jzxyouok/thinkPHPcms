@@ -4,7 +4,7 @@
  */
 namespace Admin\Controller;
 use Think\Controller;
-class BasicController extends Controller {
+class BasicController extends CommonController {
     
     public function index(){
         $result = D("Basic")->select();

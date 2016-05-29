@@ -6,7 +6,7 @@ namespace Admin\Controller;
 use Think\Controller;
 use Think\Exception;
 
-class ContentController extends Controller {
+class ContentController extends CommonController {
     
     public function index(){
         $data = array();

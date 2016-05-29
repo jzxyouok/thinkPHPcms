@@ -55,7 +55,7 @@ function showKind($status,$data){
 }
 function getLoginUsername(){
 
-    return $_SESSION['AdminUser']['username'] ? $_SESSION['AdminUser']['username'] : '';
+    return $_SESSION['adminUser']['username'] ? $_SESSION['adminUser']['username'] : '';
 }
 function getCatName($navs,$id){
     foreach ($navs as $nav){

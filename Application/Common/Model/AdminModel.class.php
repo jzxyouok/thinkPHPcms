@@ -12,7 +12,7 @@ class AdminModel extends Model{
     private $_db;
     public function __construct()
     {
-        $this->_db = M('Admin');
+        $this->_db = M('admin');
     }
 
     public function getAdminByUsername($username){
