@@ -35,4 +35,26 @@ class PositionModel extends Model{
         $data['status'] = $status;
         return $this->_db->where('id='.$id)->save($data);
     }
+    public function addPosition($data = array()){
+        if ( !$data || !is_array($data)){
+            throw_exception("数据不合法");
+        }
+        $data['create_time'] = time();
+        return $this->_db->add($data);
+    }
+    public function find($id){
+        if (!$id || !is_numeric($id)){
+            throw_exception("ID不合法");
+        }
+        return $this->_db->where('id='.$id)->find();
+    }
+    public function updatePositionById($id,$data = array()){
+        if (!$id || !is_numeric($id)){
+            throw_exception("ID不合法");
+        }
+        if ( !$data || !is_array($data)){
+            throw_exception("数据不合法");
+        }
+        $this->_db->where('id='.$id)->save($data);
+    }
 }
