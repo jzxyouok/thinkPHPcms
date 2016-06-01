@@ -17,6 +17,7 @@ class ContentController extends CommonController {
         }
         if ($_GET['catid']){
             $data['catid'] = intval($_GET['catid']);
+            $this->assign('catId',$data['catid']);
         }
         $page = $_REQUEST['p'] ? $_REQUEST['p'] : 1;
         $pageSize = $_REQUEST['pageSize'] ? $_REQUEST['pageSize'] : 5;

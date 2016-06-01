@@ -33,7 +33,7 @@
               <select class="form-control" name="catid">
                 <option value='' >全部分类</option>
                 <foreach name="webSiteMenu" item="menu">
-                <option value="{$menu.menu_id}" >{$menu.name}</option>
+                <option value="{$menu.menu_id}" <if condition="$menu.menu_id eq $catId">selected="selected"</if>>{$menu.name}</option>
                 </foreach>
               </select>
             </div>
