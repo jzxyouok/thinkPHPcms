@@ -24,4 +24,13 @@ class PositionController extends CommonController{
         $this->assign('res',$result);
         $this->display();
     }
+    public function setStatus()
+    {
+        if ($_POST){
+            $data['id'] = $_POST['id'];
+            $data['status'] = $_POST['status'];
+            parent::setStatus($data,Position );
+        }
+        return show(0,'没有提交的数据' );
+    }
 }

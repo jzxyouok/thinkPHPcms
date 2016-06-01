@@ -48,6 +48,17 @@ class AdminModel extends Model{
         return  $this->_db->where('admin_id='.$id)->save($data); // 根据条件更新记录
     }
 
+    public function updateStatusById($id, $status){
+        if(!$id || !is_numeric($id)) {
+            throw_exception("ID不合法");
+        }
+        if(!is_numeric($status)) {
+            throw_exception('状态不合法');
+        }
+        $data['status'] = $status;
+        return $this->_db->where('admin_id='.$id)->save($data);
+    }
+    
     public function getLastLoginUsers() {
         $time = mktime(0,0,0,date("m"),date("d"),date("Y"));
         $data = array(

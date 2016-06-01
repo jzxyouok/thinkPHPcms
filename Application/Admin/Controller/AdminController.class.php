@@ -47,4 +47,15 @@ class AdminController extends CommonController {
         $this->assign('vo',$user);
         $this->display();
     }
+    public function setStatus()
+    {
+        $data = array();
+        if ($_POST){
+            $data['id'] = $_POST['id'];
+            $data['status'] = $_POST['status'];
+
+            parent::setStatus($data, Admin);
+        }
+        return show(0,"没有提交的数据" );
+    }
 }
