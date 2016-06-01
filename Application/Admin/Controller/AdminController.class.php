@@ -47,11 +47,4 @@ class AdminController extends CommonController {
         $this->assign('vo',$user);
         $this->display();
     }
-    /**
-     * 公用控制器方法，完善后合并
-     * @return array
-     */
-    public function getLoginUser() {
-        return session("AdminUser");
-    }
 }
